@@ -71,3 +71,9 @@ export const configurationMenu_links: Array<TPrimaryMenu_Data> = [
     children: [],
   },
 ];
+
+export const menus = [
+  ...defaultMenu_links,
+  ...shopMenu_links,
+  ...configurationMenu_links,
+];

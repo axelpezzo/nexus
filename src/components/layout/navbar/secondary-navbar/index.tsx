@@ -16,7 +16,7 @@ const SecondaryNavbar = ({ items }: ISecondaryNavbar_Props) => {
   ));
 
   return (
-    <nav className="w-[16rem] fixed h-full py-2 px-2 flex flex-col top-0 left-[16rem] bg-gray-100">
+    <nav className="w-[16rem] fixed h-full py-2 pr-2 pl-0 flex flex-col top-0 left-[16rem] bg-gray-100">
       <div className="flex-1">
         <ul>{links}</ul>
       </div>

@@ -10,7 +10,7 @@ export const NavbarLink = ({
   return (
     <li key={label}>
       <Link
-        className="block no-underline font-medium h-11 leading-[44px] rounded-tr-md rounded-br-md text-gray-700 px-4 py-0"
+        className="block no-underline h-11 leading-[44px] font-semibold rounded-tr-md rounded-br-md text-gray-700 px-4 py-0 hover:bg-gray-200"
         data-active={active}
         href={path || ""}
         key={label}

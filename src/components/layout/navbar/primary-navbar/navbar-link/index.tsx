@@ -3,7 +3,6 @@ import { INavbarLink_Props } from "../types";
 import Link from "next/link";
 import { UnstyledButton } from "@mantine/core";
 import SecondaryNavbar from "../../secondary-navbar";
-import { act } from "react";
 
 export const NavbarLink_Link = ({
   id,
@@ -42,8 +41,6 @@ export const NavbarLink_Children = ({
   children,
   onClick,
 }: INavbarLink_Props) => {
-  console.log(id);
-  console.log(active);
   return (
     <li key={id}>
       <UnstyledButton
@@ -59,7 +56,7 @@ export const NavbarLink_Children = ({
           />
           <span>{label}</span>
         </div>
-        {children && <IconChevronRight size={16} stroke={3} />}
+        <IconChevronRight size={16} stroke={3} />
         {children && <SecondaryNavbar items={children} />}
       </UnstyledButton>
     </li>

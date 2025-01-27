@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { Group } from "@mantine/core";
 import { MantineLogo } from "@mantinex/mantine-logo";
 import { NavbarLink_Children, NavbarLink_Link } from "./navbar-link";
@@ -7,6 +6,7 @@ import {
   defaultMenu_links,
   shopMenu_links,
   configurationMenu_links,
+  menus,
 } from "./consts";
 import {
   TPrimaryMenu_Data,
@@ -14,40 +14,50 @@ import {
   IPrimaryMenu_DataChildren,
 } from "./types";
 import { useUiStore } from "@/components/providers/ui-store-providers";
+import { MENU_TYPE } from "@/constants/config";
+import _ from "lodash";
 
 const PrimaryNavbar = () => {
-  const [active, setActive] = useState(2);
-
   const {
     primaryMenu: { menuId },
     setPrimaryMenuId,
   } = useUiStore((state) => state);
 
-  console.log(menuId);
-
   const retriveLinks = (obj: Array<TPrimaryMenu_Data>) => {
     return obj.map((link: TPrimaryMenu_Data, index: number) => {
+      const isActive = menuId === link.id;
       if (link.type === "MENU_TYPE_LINK") {
         return (
           <NavbarLink_Link
             id={link.id}
-            path={(link as IPrimaryMenu_DataLink).path}
             label={link.label}
             key={link.label}
             icon={link.icon}
-            active={menuId === link.id}
+            active={isActive}
+            path={(link as IPrimaryMenu_DataLink).path}
             onClick={() => setPrimaryMenuId(link.id)}
           />
         );
       } else {
+        // If the current items is active (for performance purpose) and has children
+        // it retrives them and pass as props to the NavbarLink_Children component
+        const children = isActive
+          ? (
+              _.find(menus, {
+                id: menuId,
+                type: MENU_TYPE.MENU_TYPE_CHILDREN,
+              }) as IPrimaryMenu_DataChildren
+            ).children
+          : undefined;
+
         return (
           <NavbarLink_Children
             id={link.id}
             label={link.label}
             key={link.label}
             icon={link.icon}
-            active={menuId === link.id}
-            children={(link as IPrimaryMenu_DataChildren).children}
+            active={isActive}
+            children={children}
             onClick={() => setPrimaryMenuId(link.id)}
           />
         );

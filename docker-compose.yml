@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  nexus_app_fe:
+    container_name: nexus_app_fe
+    build:
+      dockerfile: Dockerfile.development
+    restart: unless-stopped
+    # env_file: .env
+    # environment:
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3000:3000
+    networks:
+      - nexus_app_net
+
+  nexus_app_db:
+    container_name: nexus_app_db
+    platform: linux/amd64
+    restart: unless-stopped
+    image: postgres:17.2-alpine
+    environment:
+      POSTGRES_USER: nexus_app_db
+      POSTGRES_PASSWORD: nexus_app_db
+      POSTGRES_DB: nexus_app_db
+    volumes:
+      - nexus_app-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - nexus_app_net
+
+volumes:
+  nexus_app-data:
+
+networks:
+  nexus_app_net:
+    name: nexus_app_net

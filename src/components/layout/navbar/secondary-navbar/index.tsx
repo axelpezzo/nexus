@@ -1,34 +1,12 @@
 "use client";
 import { useState } from "react";
-import {
-  IconCalendarStats,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconGauge,
-  IconHome2,
-  IconLogout,
-  IconSettings,
-  IconSwitchHorizontal,
-  IconUser,
-} from "@tabler/icons-react";
-import { Center, Stack } from "@mantine/core";
-import { MantineLogo } from "@mantinex/mantine-logo";
-import NavbarLink from "../primary-navbar/navbar-link";
+import { NavbarLink } from "./navbar-link";
+import { ISecondaryNavbar_Props } from "./types";
 
-const mockdata = [
-  { icon: IconHome2, label: "Home" },
-  { icon: IconGauge, label: "Dashboard" },
-  { icon: IconDeviceDesktopAnalytics, label: "Analytics" },
-  { icon: IconCalendarStats, label: "Releases" },
-  { icon: IconUser, label: "Account" },
-  { icon: IconFingerprint, label: "Security" },
-  { icon: IconSettings, label: "Settings" },
-];
-
-const PrimaryNavbar = () => {
+const SecondaryNavbar = ({ items }: ISecondaryNavbar_Props) => {
   const [active, setActive] = useState(2);
 
-  const links = mockdata.map((link, index) => (
+  const links = items.map((link, index) => (
     <NavbarLink
       {...link}
       key={link.label}
@@ -37,7 +15,13 @@ const PrimaryNavbar = () => {
     />
   ));
 
-  return <></>;
+  return (
+    <nav className="w-[16rem] fixed h-full py-2 px-2 flex flex-col top-0 left-[16rem] bg-gray-100">
+      <div className="flex-1">
+        <ul>{links}</ul>
+      </div>
+    </nav>
+  );
 };
 
-export default PrimaryNavbar;
+export default SecondaryNavbar;

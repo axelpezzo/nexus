@@ -4,6 +4,7 @@ import ThemeProviders from "@/components/providers/theme-providers";
 import "@mantine/core/styles.css";
 import "./globals.css";
 import AppShell from "@/components/layout/app-shell";
+import { UiStoreProvider } from "@/components/providers/ui-store-providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProviders>
-          <AppShell>{children}</AppShell>
+          <UiStoreProvider>
+            <AppShell>{children}</AppShell>
+          </UiStoreProvider>
         </ThemeProviders>
       </body>
     </html>

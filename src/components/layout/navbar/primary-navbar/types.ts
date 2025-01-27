@@ -17,6 +17,7 @@ export interface IPrimaryMenu_DataChildren extends IPrimaryMenu {
 }
 
 export interface IPrimaryMenu {
+  id: string;
   icon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>;
   label: string;
 }

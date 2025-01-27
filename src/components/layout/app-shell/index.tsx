@@ -1,8 +1,4 @@
-"use client";
-
-import Header from "../header";
 import PrimaryNavbar from "../navbar/primary-navbar";
-import SecondaryNavbar from "../navbar/secondary-navbar";
 import { IAppShell_Props } from "./types";
 
 const AppShell = ({ children }: IAppShell_Props) => {

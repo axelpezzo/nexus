@@ -18,9 +18,12 @@ import { useUiStore } from "@/components/providers/ui-store-providers";
 const PrimaryNavbar = () => {
   const [active, setActive] = useState(2);
 
-  const { primaryMenu, setPrimaryMenuId } = useUiStore((state) => state);
+  const {
+    primaryMenu: { menuId },
+    setPrimaryMenuId,
+  } = useUiStore((state) => state);
 
-  console.log(primaryMenu);
+  console.log(menuId);
 
   const retriveLinks = (obj: Array<TPrimaryMenu_Data>) => {
     return obj.map((link: TPrimaryMenu_Data, index: number) => {
@@ -32,8 +35,8 @@ const PrimaryNavbar = () => {
             label={link.label}
             key={link.label}
             icon={link.icon}
-            active={index === active}
-            onClick={() => setActive(index)}
+            active={menuId === link.id}
+            onClick={() => setPrimaryMenuId(link.id)}
           />
         );
       } else {
@@ -43,8 +46,8 @@ const PrimaryNavbar = () => {
             label={link.label}
             key={link.label}
             icon={link.icon}
+            active={menuId === link.id}
             children={(link as IPrimaryMenu_DataChildren).children}
-            active={index === active}
             onClick={() => setPrimaryMenuId(link.id)}
           />
         );

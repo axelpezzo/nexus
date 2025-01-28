@@ -8,14 +8,22 @@ import { MENU_TYPE, TPrimaryMenu_Data } from "../types";
 
 export const shopMenu_links: Array<TPrimaryMenu_Data> = [
   {
-    id: "shop_1",
+    id: "shop_products",
     type: MENU_TYPE.MENU_TYPE_CHILDREN,
     icon: IconShoppingCart,
     label: "Products",
     children: [
-      { label: "Products", path: "/shop/products" },
-      { label: "Product Categories", path: "/shop/products/categories" },
-      { label: "Product Options", path: "/shop/products/options" },
+      { id: "shop_products_list", label: "Products", path: "/shop/products" },
+      {
+        id: "shop_products_categories",
+        label: "Product Categories",
+        path: "/shop/products/categories",
+      },
+      {
+        id: "shop_products_options",
+        label: "Product Options",
+        path: "/shop/products/options",
+      },
     ],
   },
   {

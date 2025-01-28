@@ -22,6 +22,7 @@ export interface IPrimaryMenu {
 }
 
 export interface ISecondayMenu_Data {
+  id: string;
   label: string;
   path: string;
 }

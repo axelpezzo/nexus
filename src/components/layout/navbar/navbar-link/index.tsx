@@ -3,6 +3,7 @@ import Link from "next/link";
 import { UnstyledButton } from "@mantine/core";
 import SecondaryNavbar from "../secondary-navbar";
 import { INavbarLink_Primary_Props, INavbarLink_Submenu_Props } from "./types";
+import { useUiStore } from "@/components/providers/ui-store-providers";
 
 export const NavbarLink_Link = ({
   id,
@@ -41,6 +42,8 @@ export const NavbarLink_Children = ({
   children,
   onClick,
 }: INavbarLink_Primary_Props) => {
+  const secondaryMenuOpen = useUiStore((state) => state.secondaryMenu.open);
+
   return (
     <li key={id}>
       <UnstyledButton
@@ -57,7 +60,9 @@ export const NavbarLink_Children = ({
           <span>{label}</span>
         </div>
         <IconChevronRight size={16} stroke={3} />
-        {children && <SecondaryNavbar title={label} items={children} />}
+        {children && secondaryMenuOpen && (
+          <SecondaryNavbar title={label} items={children} />
+        )}
       </UnstyledButton>
     </li>
   );
@@ -72,9 +77,9 @@ export const NavbarLink_Submenu = ({
   return (
     <li key={label}>
       <Link
-        className="block no-underline h-11 leading-[44px] font-semibold rounded-tr-md rounded-br-md text-gray-500 px-4 py-0 hover:bg-gray-200 hover:text-gray-700"
+        className="block no-underline h-11 leading-[44px] font-semibold rounded-tr-md rounded-br-md text-gray-500 px-4 py-0 hover:bg-gray-200 hover:text-gray-700 data-[active=true]:text-gray-700 data-[active=true]:bg-gray-200"
         data-active={active}
-        href={path || ""}
+        href={path}
         key={label}
         onClick={onClick}
       >

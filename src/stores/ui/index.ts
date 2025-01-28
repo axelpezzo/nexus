@@ -5,10 +5,17 @@ export const defaultInitState: UiState = {
   primaryMenu: {
     menuId: "",
   },
+  secondaryMenu: {
+    menuId: "",
+    open: false,
+  },
 };
 
 export const initUiStore = (): UiState => {
-  return { primaryMenu: { menuId: "" } };
+  return {
+    primaryMenu: { menuId: "" },
+    secondaryMenu: { menuId: "", open: false },
+  };
 };
 
 export const createUiStore = (initState: UiState = defaultInitState) => {
@@ -16,5 +23,13 @@ export const createUiStore = (initState: UiState = defaultInitState) => {
     ...initState,
     setPrimaryMenuId: (id: string) =>
       set(() => ({ primaryMenu: { menuId: id } })),
+
+    setSecondaryMenuId: (id: string) =>
+      set((state) => ({
+        secondaryMenu: { ...state.secondaryMenu, menuId: id },
+      })),
+
+    setSecondaryMenuOpen: (open: boolean) =>
+      set((state) => ({ secondaryMenu: { ...state.secondaryMenu, open } })),
   }));
 };

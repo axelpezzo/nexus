@@ -13,9 +13,9 @@ export const shopMenu_links: Array<TPrimaryMenu_Data> = [
     icon: IconShoppingCart,
     label: "Products",
     children: [
-      { label: "Upcoming releases", path: "/" },
-      { label: "Previous releases", path: "/" },
-      { label: "Releases schedule", path: "/" },
+      { label: "Products", path: "/shop/products" },
+      { label: "Product Categories", path: "/shop/products/categories" },
+      { label: "Product Options", path: "/shop/products/options" },
     ],
   },
   {

@@ -17,6 +17,7 @@ import {
   TPrimaryMenu_Data,
 } from "@/config/menu/types";
 import _ from "lodash";
+import { useGetMenuChildren } from "./hooks";
 
 const PrimaryNavbar = () => {
   const {
@@ -25,7 +26,7 @@ const PrimaryNavbar = () => {
   } = useUiStore((state) => state);
 
   const retriveLinks = (obj: Array<TPrimaryMenu_Data>) => {
-    return obj.map((link: TPrimaryMenu_Data, index: number) => {
+    return obj.map((link: TPrimaryMenu_Data) => {
       const isActive = menuId === link.id;
       if (link.type === "MENU_TYPE_LINK") {
         return (
@@ -42,14 +43,7 @@ const PrimaryNavbar = () => {
       } else {
         // If the current items is active (for performance purpose) and has children
         // it retrives them and pass as props to the NavbarLink_Children component
-        const children = isActive
-          ? (
-              _.find(composePrimaryMenus, {
-                id: menuId,
-                type: MENU_TYPE.MENU_TYPE_CHILDREN,
-              }) as IPrimaryMenu_DataChildren
-            ).children
-          : undefined;
+        const children = isActive ? useGetMenuChildren(menuId) : undefined;
 
         return (
           <NavbarLink_Children
@@ -67,23 +61,25 @@ const PrimaryNavbar = () => {
   };
 
   return (
-    <nav className="w-[16rem] h-full py-2 px-2 flex flex-col bg-blue-500 fixed">
-      <div className="flex-1">
-        <Group className="pt-2 px-2 pb-4 mb-2 border-b border-blue-200 space-between">
-          <MantineLogo size={28} inverted style={{ color: "white" }} />
-        </Group>
-        <ul>{retriveLinks(defaultMenu_links)}</ul>
-        <div className="text-blue-200 font-semibold text-xs ml-4 my-4">
-          SHOP
+    <nav className="w-[18rem] h-full fixed z-50">
+      <div className="p-2 bg-blue-500 flex flex-col h-full">
+        <div className="flex-1">
+          <Group className="pt-2 px-2 pb-4 mb-2 border-b border-blue-200 space-between">
+            <MantineLogo size={28} inverted style={{ color: "white" }} />
+          </Group>
+          <ul>{retriveLinks(defaultMenu_links)}</ul>
+          <div className="text-blue-200 font-semibold text-xs ml-4 my-4">
+            SHOP
+          </div>
+          <ul>{retriveLinks(shopMenu_links)}</ul>
+          <div className="text-blue-200 font-semibold text-xs ml-4 my-4">
+            CONFIGURATION
+          </div>
+          <ul>{retriveLinks(configurationMenu_links)}</ul>
         </div>
-        <ul>{retriveLinks(shopMenu_links)}</ul>
-        <div className="text-blue-200 font-semibold text-xs ml-4 my-4">
-          CONFIGURATION
-        </div>
-        <ul>{retriveLinks(configurationMenu_links)}</ul>
-      </div>
 
-      <div className="pt-2 mt-2 border-t-1 border-blue-700"></div>
+        <div className="pt-2 mt-2 border-t-1 border-blue-700"></div>
+      </div>
     </nav>
   );
 };

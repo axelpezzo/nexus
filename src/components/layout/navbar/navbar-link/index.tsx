@@ -57,7 +57,7 @@ export const NavbarLink_Children = ({
           <span>{label}</span>
         </div>
         <IconChevronRight size={16} stroke={3} />
-        {children && <SecondaryNavbar items={children} />}
+        {children && <SecondaryNavbar title={label} items={children} />}
       </UnstyledButton>
     </li>
   );
@@ -72,7 +72,7 @@ export const NavbarLink_Submenu = ({
   return (
     <li key={label}>
       <Link
-        className="block no-underline h-11 leading-[44px] font-semibold rounded-tr-md rounded-br-md text-gray-700 px-4 py-0 hover:bg-gray-200"
+        className="block no-underline h-11 leading-[44px] font-semibold rounded-tr-md rounded-br-md text-gray-500 px-4 py-0 hover:bg-gray-200 hover:text-gray-700"
         data-active={active}
         href={path || ""}
         key={label}

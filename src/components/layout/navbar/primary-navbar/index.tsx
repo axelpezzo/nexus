@@ -1,20 +1,21 @@
 "use client";
 import { Group } from "@mantine/core";
 import { MantineLogo } from "@mantinex/mantine-logo";
-import { NavbarLink_Children, NavbarLink_Link } from "./navbar-link";
+import { NavbarLink_Children, NavbarLink_Link } from "../navbar-link";
 import {
   defaultMenu_links,
   shopMenu_links,
   configurationMenu_links,
-  menus,
-} from "./consts";
-import {
-  TPrimaryMenu_Data,
-  IPrimaryMenu_DataLink,
-  IPrimaryMenu_DataChildren,
-} from "./types";
+  composePrimaryMenus,
+} from "../../../../config/menu";
+
 import { useUiStore } from "@/components/providers/ui-store-providers";
-import { MENU_TYPE } from "@/constants/config";
+import {
+  IPrimaryMenu_DataChildren,
+  IPrimaryMenu_DataLink,
+  MENU_TYPE,
+  TPrimaryMenu_Data,
+} from "@/config/menu/types";
 import _ from "lodash";
 
 const PrimaryNavbar = () => {
@@ -43,7 +44,7 @@ const PrimaryNavbar = () => {
         // it retrives them and pass as props to the NavbarLink_Children component
         const children = isActive
           ? (
-              _.find(menus, {
+              _.find(composePrimaryMenus, {
                 id: menuId,
                 type: MENU_TYPE.MENU_TYPE_CHILDREN,
               }) as IPrimaryMenu_DataChildren

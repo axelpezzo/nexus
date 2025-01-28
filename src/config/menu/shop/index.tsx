@@ -1,24 +1,10 @@
 import {
-  IconCubeSpark,
-  IconDeviceDesktopAnalytics,
-  IconShoppingCart,
   IconBuildingStore,
-  IconUserCircle,
-  IconHome2,
+  IconCubeSpark,
+  IconShoppingCart,
   IconUser,
 } from "@tabler/icons-react";
-import { TPrimaryMenu_Data } from "./types";
-import { MENU_TYPE } from "@/constants/config";
-
-export const defaultMenu_links: Array<TPrimaryMenu_Data> = [
-  {
-    id: "default_1",
-    type: MENU_TYPE.MENU_TYPE_LINK,
-    icon: IconHome2,
-    label: "Home",
-    path: "/",
-  },
-];
+import { MENU_TYPE, TPrimaryMenu_Data } from "../types";
 
 export const shopMenu_links: Array<TPrimaryMenu_Data> = [
   {
@@ -53,27 +39,4 @@ export const shopMenu_links: Array<TPrimaryMenu_Data> = [
     label: "Stores",
     children: [],
   },
-];
-
-export const configurationMenu_links: Array<TPrimaryMenu_Data> = [
-  {
-    id: "conf_1",
-    type: MENU_TYPE.MENU_TYPE_CHILDREN,
-    icon: IconDeviceDesktopAnalytics,
-    label: "Analytics",
-    children: [],
-  },
-  {
-    id: "conf_2",
-    type: MENU_TYPE.MENU_TYPE_CHILDREN,
-    icon: IconUserCircle,
-    label: "Accounts",
-    children: [],
-  },
-];
-
-export const menus = [
-  ...defaultMenu_links,
-  ...shopMenu_links,
-  ...configurationMenu_links,
 ];

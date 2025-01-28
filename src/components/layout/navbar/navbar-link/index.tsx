@@ -1,8 +1,8 @@
 import { IconChevronRight } from "@tabler/icons-react";
-import { INavbarLink_Props } from "../types";
 import Link from "next/link";
 import { UnstyledButton } from "@mantine/core";
-import SecondaryNavbar from "../../secondary-navbar";
+import SecondaryNavbar from "../secondary-navbar";
+import { INavbarLink_Primary_Props, INavbarLink_Submenu_Props } from "./types";
 
 export const NavbarLink_Link = ({
   id,
@@ -11,7 +11,7 @@ export const NavbarLink_Link = ({
   label,
   active,
   onClick,
-}: INavbarLink_Props) => {
+}: INavbarLink_Primary_Props) => {
   return (
     <li key={id}>
       <Link
@@ -40,7 +40,7 @@ export const NavbarLink_Children = ({
   active,
   children,
   onClick,
-}: INavbarLink_Props) => {
+}: INavbarLink_Primary_Props) => {
   return (
     <li key={id}>
       <UnstyledButton
@@ -59,6 +59,27 @@ export const NavbarLink_Children = ({
         <IconChevronRight size={16} stroke={3} />
         {children && <SecondaryNavbar items={children} />}
       </UnstyledButton>
+    </li>
+  );
+};
+
+export const NavbarLink_Submenu = ({
+  path,
+  label,
+  active,
+  onClick,
+}: INavbarLink_Submenu_Props) => {
+  return (
+    <li key={label}>
+      <Link
+        className="block no-underline h-11 leading-[44px] font-semibold rounded-tr-md rounded-br-md text-gray-700 px-4 py-0 hover:bg-gray-200"
+        data-active={active}
+        href={path || ""}
+        key={label}
+        onClick={onClick}
+      >
+        {label}
+      </Link>
     </li>
   );
 };

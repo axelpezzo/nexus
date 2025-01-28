@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import { NavbarLink } from "./navbar-link";
 import { ISecondaryNavbar_Props } from "./types";
+import { NavbarLink_Submenu } from "../navbar-link";
 
 const SecondaryNavbar = ({ items }: ISecondaryNavbar_Props) => {
   const [active, setActive] = useState(2);
 
   const links = items.map((link, index) => (
-    <NavbarLink
+    <NavbarLink_Submenu
       {...link}
       key={link.label}
       active={index === active}

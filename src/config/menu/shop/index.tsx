@@ -41,10 +41,10 @@ export const shopMenu_links: Array<TPrimaryMenu_Data> = [
     children: [],
   },
   {
-    id: "shop_4",
-    type: MENU_TYPE.MENU_TYPE_CHILDREN,
+    id: "shop_stores",
+    type: MENU_TYPE.MENU_TYPE_LINK,
     icon: IconBuildingStore,
     label: "Stores",
-    children: [],
+    path: "/shop/stores",
   },
 ];

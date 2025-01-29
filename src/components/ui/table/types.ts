@@ -18,10 +18,6 @@ export interface GenericTableProps<T> {
   data: T[];
   columns: Column<T>[];
   actions?: TableAction[];
-  title?: string;
-  onAddNew?: () => void;
-  addNewLabel?: string;
   loading?: boolean;
   selectable?: boolean;
-  onRowClick?: (item: T) => void;
 }

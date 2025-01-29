@@ -1,31 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Table,
-  Checkbox,
-  Group,
-  Button,
-  Select,
-  Text,
-  Box,
-  Menu,
-  ActionIcon,
-} from "@mantine/core";
-import { IconChevronDown, IconDots } from "@tabler/icons-react";
+import { Table, Checkbox, Box, Menu, ActionIcon } from "@mantine/core";
+import { IconDots } from "@tabler/icons-react";
 import { type GenericTableProps } from "./types";
+import TableBulkActions from "./table-bulk-actions";
 
 const UiTable = <T extends { id: string | number }>({
   data,
   columns,
   actions = [],
   selectable = true,
-  onRowClick,
 }: GenericTableProps<T>) => {
   const [selectedItems, setSelectedItems] = useState<Set<string | number>>(
     new Set()
   );
-  const [selectedAction, setSelectedAction] = useState<string | null>(null);
 
   const toggleItem = (id: string | number) => {
     const newSelected = new Set(selectedItems);
@@ -43,18 +32,6 @@ const UiTable = <T extends { id: string | number }>({
     } else {
       setSelectedItems(new Set(data.map((item) => item.id)));
     }
-  };
-
-  const handleActionSelect = (actionValue: string | null) => {
-    if (!actionValue) return;
-    const action = actions.find((a) => a.value === actionValue);
-    if (action) {
-      const selectedItemsArray = data.filter((item) =>
-        selectedItems.has(item.id)
-      );
-      action.onClick(selectedItemsArray);
-    }
-    setSelectedAction(null);
   };
 
   return (
@@ -90,11 +67,7 @@ const UiTable = <T extends { id: string | number }>({
         </Table.Thead>
         <Table.Tbody>
           {data.map((item) => (
-            <Table.Tr
-              key={item.id}
-              onClick={() => onRowClick?.(item)}
-              style={onRowClick ? { cursor: "pointer" } : undefined}
-            >
+            <Table.Tr key={item.id}>
               {selectable && (
                 <Table.Td>
                   <Checkbox
@@ -131,37 +104,11 @@ const UiTable = <T extends { id: string | number }>({
         </Table.Tbody>
       </Table>
       {selectable && (
-        <Group mt="md" align="center">
-          <Text size="xs">
-            {selectedItems.size === 0
-              ? "No items selected"
-              : `${selectedItems.size} items selected`}
-          </Text>
-
-          <Text size="xs" fw={700}>
-            With selection:
-          </Text>
-          <Select
-            size="xs"
-            w={200}
-            clearable
-            value={selectedAction}
-            placeholder="- Select -"
-            rightSection={<IconChevronDown size={14} />}
-            onChange={handleActionSelect}
-            data={actions.map((action) => ({
-              value: action.value,
-              label: action.label,
-            }))}
-          />
-          <Button
-            size="xs"
-            disabled={!selectedAction || selectedItems.size === 0}
-            onClick={() => handleActionSelect(selectedAction)}
-          >
-            Apply to selected items
-          </Button>
-        </Group>
+        <TableBulkActions<T>
+          data={data}
+          selectedItems={selectedItems}
+          actions={actions}
+        />
       )}
     </Box>
   );

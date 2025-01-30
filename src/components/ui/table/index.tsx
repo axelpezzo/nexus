@@ -5,8 +5,6 @@ import {
   Table,
   Checkbox,
   Box,
-  Menu,
-  ActionIcon,
   Pagination,
   Center,
   UnstyledButton,
@@ -15,17 +13,18 @@ import {
 import {
   IconChevronDown,
   IconChevronUp,
-  IconDots,
   IconSelector,
 } from "@tabler/icons-react";
 import { type GenericTableProps } from "./types";
 import TableBulkActions from "./table-bulk-actions";
 import { sortingHelper } from "@/lib/sorting";
+import RowOperationsButton from "./row-operations-button";
 
 const UiTable = <T extends { id: string | number }>({
   data,
   columns,
-  actions = [],
+  rowActions,
+  bulkActions = [],
   selectable = true,
   totalItems,
   itemsPerPage = 10,
@@ -158,17 +157,7 @@ const UiTable = <T extends { id: string | number }>({
                 </Table.Td>
               ))}
               <Table.Td>
-                <Menu shadow="md" width={200}>
-                  <Menu.Target>
-                    <ActionIcon variant="subtle" color="gray">
-                      <IconDots size={16} />
-                    </ActionIcon>
-                  </Menu.Target>
-                  <Menu.Dropdown>
-                    <Menu.Item>Edit</Menu.Item>
-                    <Menu.Item color="red">Delete</Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
+                <RowOperationsButton<T> item={item} actions={rowActions} />
               </Table.Td>
             </Table.Tr>
           ))}
@@ -179,7 +168,7 @@ const UiTable = <T extends { id: string | number }>({
           <TableBulkActions<T>
             data={data}
             selectedItems={selectedItems}
-            actions={actions}
+            actions={bulkActions}
           />
         </Box>
       )}

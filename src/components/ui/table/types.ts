@@ -1,4 +1,6 @@
 import type React from "react";
+import { TableBulkAction } from "./table-bulk-actions/types";
+import { TableRowAction } from "./row-operations-button/types";
 
 export interface Column<T> {
   key: string;
@@ -8,16 +10,11 @@ export interface Column<T> {
   width?: string | number;
 }
 
-export interface TableAction {
-  label: string;
-  value: string;
-  onClick: (selectedItems: any[]) => void;
-}
-
 export interface GenericTableProps<T> {
   data: T[];
   columns: Column<T>[];
-  actions?: TableAction[];
+  rowActions: TableRowAction<T>;
+  bulkActions?: TableBulkAction[];
   loading?: boolean;
   selectable?: boolean;
   totalItems: number;

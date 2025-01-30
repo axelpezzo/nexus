@@ -1,21 +1,10 @@
 "use client";
-import { useState } from "react";
-import {
-  Table,
-  Checkbox,
-  Button,
-  Group,
-  Title,
-  Select,
-  Menu,
-  Text,
-  Container,
-  Paper,
-} from "@mantine/core";
-import { IconPlus } from "@tabler/icons-react";
+import { Group, Title, Container, Paper } from "@mantine/core";
+import { IconCopyCheck, IconPlus, IconTrash } from "@tabler/icons-react";
 import UiButton from "@/components/ui/button";
 import { Column } from "@/components/ui/table/types";
 import UiTable from "@/components/ui/table";
+import { TableRowAction } from "@/components/ui/table/row-operations-button/types";
 
 interface Store {
   id: string;
@@ -36,12 +25,37 @@ const columns: Column<Store>[] = [
   },
 ];
 
-const actions = [
+const bulkActions = [
   {
     label: "Delete selected",
     value: "delete",
     onClick: (items: Store[]) => {
       console.log("Delete items:", items);
+    },
+  },
+];
+
+const rowActions: TableRowAction<Store> = [
+  {
+    default: true,
+    label: "Edit",
+    onClick: (item: Store) => {
+      console.log("Edit item:", item);
+    },
+  },
+  {
+    label: "Duplicate",
+    icon: <IconCopyCheck size={14} />,
+    onClick: (item: Store) => {
+      console.log("Duplicate item:", item);
+    },
+  },
+  {
+    label: "Delete",
+    color: "red",
+    icon: <IconTrash size={14} />,
+    onClick: (item: Store) => {
+      console.log("Delete item:", item);
     },
   },
 ];
@@ -93,7 +107,8 @@ const StoresPage = () => {
         <UiTable<Store>
           data={mockData}
           columns={columns}
-          actions={actions}
+          bulkActions={bulkActions}
+          rowActions={rowActions}
           totalItems={mockData.length}
         />
       </Paper>

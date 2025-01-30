@@ -1,7 +1,7 @@
 "use client";
 
-import { createUiStore, initUiStore } from "@/stores/ui";
-import { TUiStore } from "@/stores/ui/types";
+import { createUiStore, initUiStore } from "@/state/ui";
+import { TUiStore } from "@/state/ui/types";
 import { useStore } from "zustand";
 import { createContext, useRef, useContext } from "react";
 import { UiStoreApi, UiStoreProviderProps } from "./types";

@@ -2,7 +2,7 @@ import type React from "react";
 import { TableBulkAction } from "./table-bulk-actions/types";
 import { TableRowAction } from "./row-operations-button/types";
 
-export interface Column<T> {
+export interface GenericTableColumn<T> {
   key: string;
   title: string;
   render?: (item: T) => React.ReactNode;
@@ -12,7 +12,7 @@ export interface Column<T> {
 
 export interface GenericTableProps<T> {
   data: T[];
-  columns: Column<T>[];
+  columns: GenericTableColumn<T>[];
   rowActions: TableRowAction<T>;
   bulkActions?: TableBulkAction<T>[];
   loading?: boolean;

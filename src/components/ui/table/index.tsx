@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Table, Checkbox, Box, Menu, ActionIcon } from "@mantine/core";
+import {
+  Table,
+  Checkbox,
+  Box,
+  Menu,
+  ActionIcon,
+  Pagination,
+  Center,
+} from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 import { type GenericTableProps } from "./types";
 import TableBulkActions from "./table-bulk-actions";
@@ -11,10 +19,26 @@ const UiTable = <T extends { id: string | number }>({
   columns,
   actions = [],
   selectable = true,
+  totalItems,
+  itemsPerPage = 10,
 }: GenericTableProps<T>) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState<Set<string | number>>(
     new Set()
   );
+
+  const paginatedData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const selectedItemsOnCurrentPage = Array.from(selectedItems).filter((item) =>
+    paginatedData.some((dataItem) => dataItem.id === item)
+  );
+
+  const isIndeterminate =
+    selectedItemsOnCurrentPage.length > 0 &&
+    selectedItemsOnCurrentPage.length < paginatedData.length;
 
   const toggleItem = (id: string | number) => {
     const newSelected = new Set(selectedItems);
@@ -27,10 +51,10 @@ const UiTable = <T extends { id: string | number }>({
   };
 
   const toggleAll = () => {
-    if (selectedItems.size === data.length) {
+    if (selectedItems.size === paginatedData.length) {
       setSelectedItems(new Set());
     } else {
-      setSelectedItems(new Set(data.map((item) => item.id)));
+      setSelectedItems(new Set(paginatedData.map((item) => item.id)));
     }
   };
 
@@ -49,11 +73,10 @@ const UiTable = <T extends { id: string | number }>({
                 <Checkbox
                   onChange={toggleAll}
                   checked={
-                    selectedItems.size === data.length && data.length > 0
+                    selectedItems.size === paginatedData.length &&
+                    paginatedData.length > 0
                   }
-                  indeterminate={
-                    selectedItems.size > 0 && selectedItems.size < data.length
-                  }
+                  indeterminate={isIndeterminate}
                 />
               </Table.Th>
             )}
@@ -66,7 +89,7 @@ const UiTable = <T extends { id: string | number }>({
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {data.map((item) => (
+          {paginatedData.map((item) => (
             <Table.Tr key={item.id}>
               {selectable && (
                 <Table.Td>
@@ -104,12 +127,24 @@ const UiTable = <T extends { id: string | number }>({
         </Table.Tbody>
       </Table>
       {selectable && (
-        <TableBulkActions<T>
-          data={data}
-          selectedItems={selectedItems}
-          actions={actions}
-        />
+        <Box className="mt-4">
+          <TableBulkActions<T>
+            data={data}
+            selectedItems={selectedItems}
+            actions={actions}
+          />
+        </Box>
       )}
+      <Box className="mt-4">
+        <Center>
+          <Pagination
+            size="sm"
+            value={currentPage}
+            total={Math.ceil(totalItems / itemsPerPage)}
+            onChange={setCurrentPage}
+          />
+        </Center>
+      </Box>
     </Box>
   );
 };

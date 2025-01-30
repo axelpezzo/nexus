@@ -20,4 +20,6 @@ export interface GenericTableProps<T> {
   actions?: TableAction[];
   loading?: boolean;
   selectable?: boolean;
+  totalItems: number;
+  itemsPerPage?: number;
 }

@@ -9,10 +9,18 @@ import {
   ActionIcon,
   Pagination,
   Center,
+  UnstyledButton,
+  Group,
 } from "@mantine/core";
-import { IconDots } from "@tabler/icons-react";
+import {
+  IconChevronDown,
+  IconChevronUp,
+  IconDots,
+  IconSelector,
+} from "@tabler/icons-react";
 import { type GenericTableProps } from "./types";
 import TableBulkActions from "./table-bulk-actions";
+import { sortingHelper } from "@/lib/sorting";
 
 const UiTable = <T extends { id: string | number }>({
   data,
@@ -23,11 +31,16 @@ const UiTable = <T extends { id: string | number }>({
   itemsPerPage = 10,
 }: GenericTableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortedData, setSortedData] = useState(data);
   const [selectedItems, setSelectedItems] = useState<Set<string | number>>(
     new Set()
   );
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: "asc" | "desc";
+  } | null>(null);
 
-  const paginatedData = data.slice(
+  const paginatedData = sortedData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -58,6 +71,30 @@ const UiTable = <T extends { id: string | number }>({
     }
   };
 
+  const handleSort = (key: string) => {
+    let direction: "asc" | "desc" = "asc";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "asc"
+    ) {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+    sortingHelper<T>(data, key, direction, setSortedData);
+  };
+
+  const SortIcon = ({ column }: { column: string }) => {
+    if (!sortConfig || sortConfig.key !== column) {
+      return <IconSelector size={14} />;
+    }
+    return sortConfig.direction === "asc" ? (
+      <IconChevronUp size={14} />
+    ) : (
+      <IconChevronDown size={14} />
+    );
+  };
+
   return (
     <Box pos="relative">
       <Table
@@ -82,7 +119,18 @@ const UiTable = <T extends { id: string | number }>({
             )}
             {columns.map((column) => (
               <Table.Th key={column.key} w={column.width}>
-                {column.title}
+                {column.sortable ? (
+                  <UnstyledButton onClick={() => handleSort(column.key)}>
+                    <Group justify="space-between">
+                      <span>{column.title}</span>
+                      <Center>
+                        <SortIcon column={column.key} />
+                      </Center>
+                    </Group>
+                  </UnstyledButton>
+                ) : (
+                  column.title
+                )}
               </Table.Th>
             ))}
             <Table.Th w={100}>Operations</Table.Th>

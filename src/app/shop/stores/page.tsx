@@ -27,10 +27,12 @@ const columns: Column<Store>[] = [
   {
     key: "name",
     title: "Name",
+    sortable: true,
   },
   {
     key: "updated",
     title: "Updated",
+    sortable: true,
   },
 ];
 

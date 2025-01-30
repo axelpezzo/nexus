@@ -5,6 +5,7 @@ import UiButton from "@/components/ui/button";
 import { Column } from "@/components/ui/table/types";
 import UiTable from "@/components/ui/table";
 import { TableRowAction } from "@/components/ui/table/row-operations-button/types";
+import { TableBulkAction } from "@/components/ui/table/table-bulk-actions/types";
 
 interface Store {
   id: string;
@@ -25,7 +26,7 @@ const columns: Column<Store>[] = [
   },
 ];
 
-const bulkActions = [
+const bulkActions: TableBulkAction<Store>[] = [
   {
     label: "Delete selected",
     value: "delete",

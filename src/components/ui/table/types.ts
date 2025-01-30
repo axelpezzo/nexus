@@ -14,7 +14,7 @@ export interface GenericTableProps<T> {
   data: T[];
   columns: Column<T>[];
   rowActions: TableRowAction<T>;
-  bulkActions?: TableBulkAction[];
+  bulkActions?: TableBulkAction<T>[];
   loading?: boolean;
   selectable?: boolean;
   totalItems: number;

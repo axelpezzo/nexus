@@ -1,11 +1,11 @@
-export interface TableBulkAction {
+export interface TableBulkAction<T> {
   label: string;
   value: string;
-  onClick: (selectedItems: any[]) => void;
+  onClick: (selectedItems: T[]) => void;
 }
 
 export interface TableBulkActions_Props<T> {
   data: T[];
   selectedItems: Set<string | number>;
-  actions?: TableBulkAction[];
+  actions?: TableBulkAction<T>[];
 }

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "animations.css";
+@import "./tabs/index.css";
 
 :root {
   --background: #ffffff;

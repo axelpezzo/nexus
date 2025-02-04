@@ -21,6 +21,10 @@ import { useState } from "react";
 import NuiTextField from "@/components/ui/fields/nui-text-field";
 import NuiTextArea from "@/components/ui/fields/nui-text-area";
 import NuiCheckedItems from "@/components/ui/fields/nui-checkbox-items";
+import NuiSelect from "@/components/ui/fields/nui-select";
+import { languages, paymentMethods } from "./_const";
+import NuiMultiSelect from "@/components/ui/fields/nui-multi-select";
+import NuiSwitch from "@/components/ui/fields/nui-switch";
 
 const COUNTRIES = [
   "Afghanistan",
@@ -93,10 +97,17 @@ const SectionStore_Form = () => {
               </Tabs.Tab>
 
               <Tabs.Tab
-                value="settings"
+                value="payment_billing"
                 className="table_content_tab h-10 uppercase"
               >
-                Settings
+                Payment & billing
+              </Tabs.Tab>
+
+              <Tabs.Tab
+                value="localization"
+                className="table_content_tab h-10 uppercase"
+              >
+                Localization
               </Tabs.Tab>
             </Tabs.List>
 
@@ -131,7 +142,7 @@ const SectionStore_Form = () => {
                       </Text>
                     </Box>
 
-                    <Select
+                    <NuiSelect
                       required
                       label="Country"
                       data={COUNTRIES}
@@ -163,17 +174,9 @@ const SectionStore_Form = () => {
               </Stack>
             </Tabs.Panel>
 
-            <Tabs.Panel value="settings" className="pt-10">
+            <Tabs.Panel value="payment_billing" className="pt-10">
               <Stack>
-                <Select
-                  required
-                  label="Timezone"
-                  data={TIMEZONES}
-                  {...form.getInputProps("timezone")}
-                  description="Used when determining promotion and tax availability."
-                />
-
-                <Select
+                <NuiSelect
                   required
                   label="Default currency"
                   placeholder="- Select a value -"
@@ -181,42 +184,60 @@ const SectionStore_Form = () => {
                   {...form.getInputProps("defaultCurrency")}
                 />
 
-                <MultiSelect
+                <NuiMultiSelect
                   required
                   label="Billing countries"
                   placeholder="- Select a value -"
                   data={countries}
                 />
 
-                <Paper withBorder p="md" className="mt-4">
-                  <Stack>
-                    <Box>
-                      <Title order={3}>Tax Settings</Title>
-                      <Text size="sm" c="dimmed" className="mt-1">
-                        Configure tax collection settings for your store
-                      </Text>
-                    </Box>
+                <NuiSwitch
+                  label="Prices are entered with taxes included"
+                  {...form.getInputProps("taxIncluded")}
+                />
 
-                    <Switch
-                      label="Prices are entered with taxes included"
+                <Paper withBorder p="md">
+                  <Stack>
+                    <NuiCheckedItems
+                      label="Tax settings enabled"
+                      description="Select the tax settings enabled for this store."
+                      items={languages}
                       {...form.getInputProps("defaultCurrency")}
                     />
-
-                    <NuiCheckedItems />
                   </Stack>
                 </Paper>
 
-                <Paper withBorder p="md" className="mt-4">
+                <Paper withBorder p="md">
                   <Stack>
-                    <Box>
-                      <Title order={3}>Payment methods</Title>
-                      <Text size="sm" c="dimmed" className="mt-1">
-                        Configure tax collection settings for your store
-                      </Text>
-                    </Box>
-
-                    <NuiCheckedItems />
+                    <NuiCheckedItems
+                      label="Payment methods enabled"
+                      description="Select the payment methods enabled for this store."
+                      items={paymentMethods}
+                      {...form.getInputProps("defaultCurrency")}
+                    />
                   </Stack>
+                </Paper>
+              </Stack>
+            </Tabs.Panel>
+
+            <Tabs.Panel value="localization" className="pt-10">
+              <Stack>
+                <NuiSelect
+                  required
+                  label="Timezone"
+                  data={TIMEZONES}
+                  {...form.getInputProps("timezone")}
+                  description="Used when determining promotion and tax availability."
+                />
+
+                <Paper withBorder p="md">
+                  <NuiCheckedItems
+                    cols={4}
+                    label="Languages enabled"
+                    description="Select the languages enabled for this store."
+                    items={languages}
+                    {...form.getInputProps("defaultCurrency")}
+                  />
                 </Paper>
               </Stack>
             </Tabs.Panel>
@@ -246,9 +267,6 @@ const SectionStore_Form = () => {
                   </Text>
                 </Box>
               </Stack>
-            </Paper>
-            <Paper withBorder p="md">
-              <NuiCheckedItems />
             </Paper>
             <Paper withBorder p="md">
               <Stack>

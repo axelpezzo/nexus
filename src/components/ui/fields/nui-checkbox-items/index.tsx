@@ -1,46 +1,24 @@
-import { useState } from "react";
-import { Checkbox, Group, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Checkbox, Group, SimpleGrid, Text } from "@mantine/core";
+import { INuiCheckedItems_Props } from "./types";
 
-const data = [
-  {
-    name: "Italian",
-    description: "it-IT",
-  },
-  {
-    name: "English",
-    description: "en-GB",
-  },
-  {
-    name: "German",
-    description: "de-DE",
-  },
-  {
-    name: "French",
-    description: "fr-FR",
-  },
-  {
-    name: "Portuguese",
-    description: "pt-PT",
-  },
-  {
-    name: "Spanish",
-    description: "es-ES",
-  },
-];
-
-const NuiCheckedItems = () => {
-  const [value, setValue] = useState<string[]>([]);
-
-  const cards = data.map((item) => (
+const NuiCheckedItems = ({
+  label,
+  description,
+  cols = 4,
+  size = "md",
+  items,
+  ...props
+}: INuiCheckedItems_Props) => {
+  const cards = items.map((item) => (
     <Checkbox.Card
       className="p-2 hover:bg-gray-100"
-      value={item.name}
-      key={item.name}
+      value={item.id.toString()}
+      key={item.title}
     >
-      <Group wrap="nowrap" align="flex-start" gap="xs">
+      <Group wrap="nowrap" align="center" gap={size}>
         <Checkbox.Indicator />
         <div>
-          <Text className="font-semibold text-sm">{item.name}</Text>
+          <Text className="font-semibold text-sm">{item.title}</Text>
           <Text className="text-xs text-gray-600">{item.description}</Text>
         </div>
       </Group>
@@ -50,12 +28,17 @@ const NuiCheckedItems = () => {
   return (
     <>
       <Checkbox.Group
-        value={value}
-        onChange={setValue}
-        label="Pick packages to install"
-        description="Choose all packages that you will need in your application"
+        size={size}
+        label={label}
+        description={description}
+        {...props}
+        styles={{
+          label: {
+            fontWeight: 600,
+          },
+        }}
       >
-        <SimpleGrid cols={4} spacing="xs" className="mt-4">
+        <SimpleGrid cols={cols} spacing={size} className="mt-4">
           {cards}
         </SimpleGrid>
       </Checkbox.Group>

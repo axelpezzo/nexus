@@ -25,26 +25,12 @@ import NuiSelect from "@/components/ui/fields/nui-select";
 import { languages, paymentMethods } from "./_const";
 import NuiMultiSelect from "@/components/ui/fields/nui-multi-select";
 import NuiSwitch from "@/components/ui/fields/nui-switch";
-
-const COUNTRIES = [
-  "Afghanistan",
-  "Aland Islands",
-  "Albania",
-  "Algeria",
-  // ... add more countries
-];
-
-const TIMEZONES = [
-  "Rome",
-  "London",
-  "New York",
-  // ... add more timezones
-];
-
-const countries = [
-  { value: "react", label: "React" },
-  { value: "ng", label: "Angular" },
-];
+import NuiTabs from "@/components/ui/tabs";
+import SubForm_1 from "./sub-form/sub-form-1";
+import SubForm_2 from "./sub-form/sub-form-2";
+import SubForm_3 from "./sub-form/sub-form-3";
+import InfoCard_1 from "./info-card/info-card-1";
+import InfoCard_2 from "./info-card/info-card-2";
 
 const SectionStore_Form = () => {
   const [activeTab, setActiveTab] = useState<string | null>("info");
@@ -78,6 +64,28 @@ const SectionStore_Form = () => {
     },
   });
 
+  const tabsConfig = {
+    activeTab,
+    setActiveTab,
+    tabs: [
+      {
+        value: "info",
+        label: "Info",
+        children: <SubForm_1 form={form} />,
+      },
+      {
+        value: "settings",
+        label: "Settings",
+        children: <SubForm_2 form={form} />,
+      },
+      {
+        value: "profile",
+        label: "Profile",
+        children: <SubForm_3 form={form} />,
+      },
+    ],
+  };
+
   const handleSubmit = form.onSubmit((values) => {
     console.log(values);
     // Handle form submission
@@ -87,209 +95,13 @@ const SectionStore_Form = () => {
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <Grid gutter="xl">
         <Grid.Col span={8}>
-          <Tabs value={activeTab} onChange={setActiveTab} variant="unstyled">
-            <Tabs.List grow>
-              <Tabs.Tab
-                value="info"
-                className="table_content_tab h-10 uppercase"
-              >
-                Info
-              </Tabs.Tab>
-
-              <Tabs.Tab
-                value="payment_billing"
-                className="table_content_tab h-10 uppercase"
-              >
-                Payment & billing
-              </Tabs.Tab>
-
-              <Tabs.Tab
-                value="localization"
-                className="table_content_tab h-10 uppercase"
-              >
-                Localization
-              </Tabs.Tab>
-            </Tabs.List>
-
-            <Tabs.Panel value="info" className="pt-10">
-              <Stack>
-                <NuiTextField
-                  required
-                  label="Title"
-                  {...form.getInputProps("title")}
-                />
-
-                <NuiTextArea
-                  label="Description"
-                  {...form.getInputProps("description")}
-                />
-
-                <NuiTextField
-                  required
-                  label="Email"
-                  description="Store email notifications are sent from this address."
-                  {...form.getInputProps("email")}
-                />
-
-                <NuiTextField label="Phone" {...form.getInputProps("phone")} />
-
-                <Paper withBorder p="md" className="mt-4">
-                  <Stack>
-                    <Box>
-                      <Title order={3}>Address</Title>
-                      <Text size="sm" c="dimmed" className="mt-1">
-                        Configure tax collection settings for your store
-                      </Text>
-                    </Box>
-
-                    <NuiSelect
-                      required
-                      label="Country"
-                      data={COUNTRIES}
-                      {...form.getInputProps("address.country")}
-                    />
-
-                    <NuiTextField
-                      required
-                      label="Street address"
-                      {...form.getInputProps("address.streetAddress1")}
-                    />
-
-                    <NuiTextField
-                      {...form.getInputProps("address.streetAddress2")}
-                    />
-
-                    <NuiTextField
-                      required
-                      label="City"
-                      {...form.getInputProps("address.city")}
-                    />
-
-                    <NuiTextField
-                      label="Postal code"
-                      {...form.getInputProps("address.postalCode")}
-                    />
-                  </Stack>
-                </Paper>
-              </Stack>
-            </Tabs.Panel>
-
-            <Tabs.Panel value="payment_billing" className="pt-10">
-              <Stack>
-                <NuiSelect
-                  required
-                  label="Default currency"
-                  placeholder="- Select a value -"
-                  data={["USD", "EUR", "GBP"]}
-                  {...form.getInputProps("defaultCurrency")}
-                />
-
-                <NuiMultiSelect
-                  required
-                  label="Billing countries"
-                  placeholder="- Select a value -"
-                  data={countries}
-                />
-
-                <NuiSwitch
-                  label="Prices are entered with taxes included"
-                  {...form.getInputProps("taxIncluded")}
-                />
-
-                <Paper withBorder p="md">
-                  <Stack>
-                    <NuiCheckedItems
-                      label="Tax settings enabled"
-                      description="Select the tax settings enabled for this store."
-                      items={languages}
-                      {...form.getInputProps("defaultCurrency")}
-                    />
-                  </Stack>
-                </Paper>
-
-                <Paper withBorder p="md">
-                  <Stack>
-                    <NuiCheckedItems
-                      label="Payment methods enabled"
-                      description="Select the payment methods enabled for this store."
-                      items={paymentMethods}
-                      {...form.getInputProps("defaultCurrency")}
-                    />
-                  </Stack>
-                </Paper>
-              </Stack>
-            </Tabs.Panel>
-
-            <Tabs.Panel value="localization" className="pt-10">
-              <Stack>
-                <NuiSelect
-                  required
-                  label="Timezone"
-                  data={TIMEZONES}
-                  {...form.getInputProps("timezone")}
-                  description="Used when determining promotion and tax availability."
-                />
-
-                <Paper withBorder p="md">
-                  <NuiCheckedItems
-                    cols={4}
-                    label="Languages enabled"
-                    description="Select the languages enabled for this store."
-                    items={languages}
-                    {...form.getInputProps("defaultCurrency")}
-                  />
-                </Paper>
-              </Stack>
-            </Tabs.Panel>
-          </Tabs>
+          <NuiTabs config={tabsConfig} />
         </Grid.Col>
 
         <Grid.Col span={4}>
           <Stack>
-            <Paper withBorder p="md">
-              <Stack>
-                <Box>
-                  <Text size="sm">Created:</Text>
-                  <Text size="sm" color="dimmed">
-                    3 Feb 2025 - 10:43
-                  </Text>
-                </Box>
-                <Box mt="md">
-                  <Text size="sm">Last saved:</Text>
-                  <Text size="sm" color="dimmed">
-                    3 Feb 2025 - 10:43
-                  </Text>
-                </Box>
-                <Box mt="md">
-                  <Text size="sm">Owner:</Text>
-                  <Text size="sm" c="dimmed">
-                    admin
-                  </Text>
-                </Box>
-              </Stack>
-            </Paper>
-            <Paper withBorder p="md">
-              <Stack>
-                <Box>
-                  <Switch
-                    label="Store is active"
-                    description=""
-                    {...form.getInputProps("isDefaultStore", {
-                      type: "checkbox",
-                    })}
-                  />
-                </Box>
-                <Box mt="md">
-                  <Switch
-                    label="Make this the default store"
-                    description="New carts will be assigned to this store unless a contributed module or custom code decides otherwise."
-                    {...form.getInputProps("isDefaultStore", {
-                      type: "checkbox",
-                    })}
-                  />
-                </Box>
-              </Stack>
-            </Paper>
+            <InfoCard_1 />
+            <InfoCard_2 form={form} />
             <Box className="mt-4">
               <Flex
                 gap="md"

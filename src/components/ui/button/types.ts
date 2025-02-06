@@ -1,5 +1,5 @@
 import { ButtonProps } from "@mantine/core";
 
-export interface UiButton_Props extends ButtonProps {
+export interface NuiButton_Props extends ButtonProps {
   href: string;
 }

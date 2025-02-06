@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs } from "@mantine/core";
 import { INuiTabs_Props } from "./types";
 
-const DynamicTabs = ({ config }: INuiTabs_Props) => {
+const NuiTabs = ({ config }: INuiTabs_Props) => {
   return (
     <Tabs
       value={config.activeTab}
@@ -34,4 +34,4 @@ const DynamicTabs = ({ config }: INuiTabs_Props) => {
   );
 };
 
-export default DynamicTabs;
+export default NuiTabs;

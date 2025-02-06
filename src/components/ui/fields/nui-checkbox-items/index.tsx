@@ -32,11 +32,6 @@ const NuiCheckedItems = ({
         label={label}
         description={description}
         {...props}
-        styles={{
-          label: {
-            fontWeight: 600,
-          },
-        }}
       >
         <SimpleGrid cols={cols} spacing={size} className="mt-4">
           {cards}

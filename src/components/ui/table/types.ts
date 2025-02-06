@@ -2,7 +2,7 @@ import type React from "react";
 import { TableBulkAction } from "./table-bulk-actions/types";
 import { TableRowAction } from "./row-operations-button/types";
 
-export interface GenericTableColumn<T> {
+export interface NuiTableColumn<T> {
   key: string;
   title: string;
   render?: (item: T) => React.ReactNode;
@@ -10,9 +10,9 @@ export interface GenericTableColumn<T> {
   width?: string | number;
 }
 
-export interface GenericTableProps<T> {
+export interface NuiTableProps<T> {
   data: T[];
-  columns: GenericTableColumn<T>[];
+  columns: NuiTableColumn<T>[];
   rowActions: TableRowAction<T>;
   bulkActions?: TableBulkAction<T>[];
   loading?: boolean;

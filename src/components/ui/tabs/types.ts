@@ -8,7 +8,7 @@ export interface ITabConfig {
 
 export interface INuiTabs_Props {
   config: {
-    activeTab: string;
+    activeTab: string | null;
     setActiveTab: (value: string | null) => void;
     tabs: ITabConfig[];
   };

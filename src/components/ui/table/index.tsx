@@ -15,12 +15,12 @@ import {
   IconChevronUp,
   IconSelector,
 } from "@tabler/icons-react";
-import { type GenericTableProps } from "./types";
+import { NuiTableProps } from "./types";
 import TableBulkActions from "./table-bulk-actions";
 import { sortingHelper } from "@/lib/sorting";
 import RowOperationsButton from "./row-operations-button";
 
-const UiTable = <T extends { id: string | number }>({
+const NuiTable = <T extends { id: string | number }>({
   data,
   columns,
   rowActions,
@@ -28,7 +28,7 @@ const UiTable = <T extends { id: string | number }>({
   selectable = true,
   totalItems,
   itemsPerPage = 10,
-}: GenericTableProps<T>) => {
+}: NuiTableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedData, setSortedData] = useState(data);
   const [selectedItems, setSelectedItems] = useState<Set<string | number>>(
@@ -186,4 +186,4 @@ const UiTable = <T extends { id: string | number }>({
   );
 };
 
-export default UiTable;
+export default NuiTable;

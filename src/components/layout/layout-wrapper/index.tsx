@@ -1,7 +1,7 @@
 "use client";
 import { Container, Group, Paper, Title } from "@mantine/core";
 import { ILayoutWrapper_Props } from "./types";
-import UiButton from "@/components/ui/button";
+import NuiButton from "@/components/ui/button";
 
 const LayoutWrapper = ({ title, action, children }: ILayoutWrapper_Props) => {
   return (
@@ -10,14 +10,14 @@ const LayoutWrapper = ({ title, action, children }: ILayoutWrapper_Props) => {
         <Title order={1}>{title}</Title>
         {action && (
           <>
-            <UiButton
+            <NuiButton
               color="blue"
               variant="filled"
               href={action.href}
               leftSection={action.icon}
             >
               {action.label}
-            </UiButton>
+            </NuiButton>
           </>
         )}
       </Group>

@@ -3,9 +3,9 @@
 import { Button } from "@mantine/core";
 import { forwardRef } from "react";
 import Link from "next/link";
-import { UiButton_Props } from "./types";
+import { NuiButton_Props } from "./types";
 
-const UiButton = forwardRef<HTMLAnchorElement, UiButton_Props>(
+const NuiButton = forwardRef<HTMLAnchorElement, NuiButton_Props>(
   ({ href, children, ...rest }, ref) => (
     <Button component={Link} href={href} ref={ref} {...rest}>
       {children}
@@ -13,4 +13,4 @@ const UiButton = forwardRef<HTMLAnchorElement, UiButton_Props>(
   )
 );
 
-export default UiButton;
+export default NuiButton;

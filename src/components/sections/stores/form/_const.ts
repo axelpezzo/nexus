@@ -48,3 +48,23 @@ export const paymentMethods = [
     description: "Apple Pay, Google Pay, Amazon Pay",
   },
 ];
+
+export const COUNTRIES = [
+  "Afghanistan",
+  "Aland Islands",
+  "Albania",
+  "Algeria",
+  // ... add more countries
+];
+
+export const TIMEZONES = [
+  "Rome",
+  "London",
+  "New York",
+  // ... add more timezones
+];
+
+export const countries = [
+  { value: "react", label: "React" },
+  { value: "ng", label: "Angular" },
+];

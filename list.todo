@@ -1,8 +1,6 @@
 STORE
 
-- validation on tab (ui & logic)
 - mock on /api in order to fake the saving of the store's form 
-- add the addstore button on table
 - mock data on store table
 - handle the edit with mock data on store
 - handle delete action

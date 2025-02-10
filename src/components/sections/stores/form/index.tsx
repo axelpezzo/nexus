@@ -14,6 +14,7 @@ import {
 import NuiTabs from "@/components/ui/tabs";
 import { initialValues_form, validationRules_form } from "./config/form";
 import { tabsConfig } from "./config/tabs";
+import { postStore } from "./actions";
 
 const SectionStore_Form = () => {
   const form = useForm({
@@ -21,9 +22,12 @@ const SectionStore_Form = () => {
     validate: validationRules_form,
   });
 
-  const handleSubmit = form.onSubmit((values) => {
+  const handleReset = () => form.reset();
+
+  const handleSubmit = form.onSubmit(async (values) => {
     console.log(values);
-    // Handle form submission
+    const result = await postStore({});
+    console.log("posted!");
   });
 
   // Determine which tabs have errors
@@ -32,10 +36,8 @@ const SectionStore_Form = () => {
     return errorKey;
   });
 
-  console.log(errorTabs);
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} onReset={handleReset}>
       <Grid gutter="xl">
         <Grid.Col span={8}>
           <NuiTabs
@@ -98,7 +100,7 @@ const SectionStore_Form = () => {
                 direction="row"
                 wrap="wrap"
               >
-                <Button type="submit" color="gray" size="lg">
+                <Button type="reset" color="gray" size="lg">
                   Reset
                 </Button>
                 <Button type="submit" color="blue" size="lg">

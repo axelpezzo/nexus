@@ -8,8 +8,6 @@ const NuiTabs = ({ config, error }: INuiTabs_Props) => {
     defaultTab?.value || ""
   );
 
-  console.log(error);
-
   return (
     <Tabs value={activeTab} onChange={setActiveTab} variant="unstyled">
       <Tabs.List grow>

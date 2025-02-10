@@ -6,11 +6,11 @@ export const isEmail: ValidationFunction<string> = (value) =>
 
 // Verifica se una stringa non è vuota
 export const isNotEmpty: ValidationFunction<string> = (value) =>
-  value.trim().length > 0;
+  value?.trim().length > 0;
 
 // Verifica che un array non sia vuoto
 export const isArrayNotEmpty: ValidationFunction<unknown[]> = (value) =>
-  value.length > 0;
+  value?.length > 0;
 
 // Verifica che una stringa abbia una lunghezza minima
 export const hasMinLength =

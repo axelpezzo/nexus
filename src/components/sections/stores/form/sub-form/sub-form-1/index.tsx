@@ -8,18 +8,25 @@ import { COUNTRIES } from "../../_const";
 const SubForm_1 = ({ form }: ISubForm_Props) => {
   return (
     <Stack gap="lg">
-      <NuiTextField required label="Title" {...form.getInputProps("title")} />
-
-      <NuiTextArea label="Description" {...form.getInputProps("description")} />
-
       <NuiTextField
-        required
-        label="Email"
-        description="Store email notifications are sent from this address."
-        {...form.getInputProps("email")}
+        withAsterisk
+        label="Title"
+        {...form.getInputProps("store_name")}
       />
 
-      <NuiTextField label="Phone" {...form.getInputProps("phone")} />
+      <NuiTextArea
+        label="Description"
+        {...form.getInputProps("store_description")}
+      />
+
+      <NuiTextField
+        withAsterisk
+        label="Email"
+        description="Store email notifications are sent from this address."
+        {...form.getInputProps("store_email")}
+      />
+
+      <NuiTextField label="Phone" {...form.getInputProps("store_phone")} />
 
       <Paper withBorder p="md" className="mt-4">
         <Stack gap="lg">
@@ -31,29 +38,33 @@ const SubForm_1 = ({ form }: ISubForm_Props) => {
           </Box>
 
           <NuiSelect
-            required
             label="Country"
             data={COUNTRIES}
-            {...form.getInputProps("address.country")}
+            {...form.getInputProps("store_address.store_country")}
           />
 
           <NuiTextField
-            required
+            label="Province"
+            {...form.getInputProps("store_address.store_province")}
+          />
+
+          <NuiTextField
             label="Street address"
-            {...form.getInputProps("address.streetAddress1")}
+            {...form.getInputProps("store_address.store_streetAddress1")}
           />
 
-          <NuiTextField {...form.getInputProps("address.streetAddress2")} />
+          <NuiTextField
+            {...form.getInputProps("store_address.store_streetAddress2")}
+          />
 
           <NuiTextField
-            required
             label="City"
-            {...form.getInputProps("address.city")}
+            {...form.getInputProps("store_address.store_city")}
           />
 
           <NuiTextField
             label="Postal code"
-            {...form.getInputProps("address.postalCode")}
+            {...form.getInputProps("store_address.store_postalCode")}
           />
         </Stack>
       </Paper>

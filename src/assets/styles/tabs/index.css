@@ -1,45 +1,28 @@
-.table_content_tab {
-  position: relative;
-  border: 1px solid
-    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
-  background-color: light-dark(
-    var(--mantine-color-white),
-    var(--mantine-color-dark-6)
-  );
+/* Aggiungi queste classi nel tuo file Tailwind CSS se serve personalizzare */
+.table-content-tab {
+  @apply relative border border-gray-200 bg-gray-200;
+}
 
-  &:first-of-type {
-    border-radius: 4px 0 0 4px;
+.table-content-tab:first-of-type {
+  @apply rounded-l-md rtl:rounded-r-md;
+}
 
-    &:rtl {
-      border-radius: 0 4px 4px 0;
-    }
-  }
+.table-content-tab:last-of-type {
+  @apply rounded-r-md rtl:rounded-l-md;
+}
 
-  &:last-of-type {
-    border-radius: 0 4px 4px 0;
+.table-content-tab + .table-content-tab {
+  @apply border-l-0 rtl:border-l rtl:border-r-0;
+}
 
-    &:rtl {
-      border-radius: 4px 0 0 4px;
-    }
-  }
+.table-content-tab[data-active] {
+  @apply z-10 bg-blue-500 border-blue-500 text-white;
+}
 
-  & + & {
-    border-left-width: 0;
+.table-content-tab-error {
+  @apply border-red-200 bg-red-200;
+}
 
-    &:rtl {
-      border-right-width: 0;
-      border-left-width: 1px;
-    }
-  }
-
-  &[data-active] {
-    z-index: 1;
-    background-color: var(--mantine-color-blue-filled);
-    border-color: var(--mantine-color-blue-filled);
-    color: var(--mantine-color-white);
-
-    &:hover {
-      background-color: var(--mantine-color-blue-filled-hover);
-    }
-  }
+.table-content-tab-error[data-active] {
+  @apply bg-red-500 border-red-500 text-white;
 }

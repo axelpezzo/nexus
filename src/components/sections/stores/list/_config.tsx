@@ -1,10 +1,10 @@
 import { Store } from "@/app/shop/stores/page-data";
 import { TableRowAction } from "@/components/ui/table/row-operations-button/types";
 import { TableBulkAction } from "@/components/ui/table/table-bulk-actions/types";
-import { GenericTableColumn } from "@/components/ui/table/types";
+import { NuiTableColumn } from "@/components/ui/table/types";
 import { IconCopyCheck, IconTrash } from "@tabler/icons-react";
 
-export const columns: GenericTableColumn<Store>[] = [
+export const columns: NuiTableColumn<Store>[] = [
   {
     key: "name",
     title: "Name",

@@ -8,20 +8,21 @@ const SubForm_3 = ({ form }: ISubForm_Props) => {
   return (
     <Stack gap="lg">
       <NuiSelect
-        required
+        withAsterisk
         label="Timezone"
         data={TIMEZONES}
-        {...form.getInputProps("timezone")}
+        {...form.getInputProps("store_timezone")}
         description="Used when determining promotion and tax availability."
       />
 
       <Paper withBorder p="md">
         <NuiCheckedItems
           cols={4}
+          withAsterisk
           label="Languages enabled"
           description="Select the languages enabled for this store."
           items={languages}
-          {...form.getInputProps("defaultCurrency")}
+          {...form.getInputProps("store_languages")}
         />
       </Paper>
     </Stack>

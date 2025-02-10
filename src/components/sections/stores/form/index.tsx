@@ -2,106 +2,94 @@
 
 import { useForm } from "@mantine/form";
 import {
-  TextInput,
-  Select,
   Stack,
   Box,
-  Text,
-  Paper,
-  Switch,
   Button,
   Grid,
-  Accordion,
-  MultiSelect,
-  Title,
-  Tabs,
   Flex,
+  Paper,
+  Text,
+  Switch,
 } from "@mantine/core";
-import { useState } from "react";
-import NuiTextField from "@/components/ui/fields/nui-text-field";
-import NuiTextArea from "@/components/ui/fields/nui-text-area";
-import NuiCheckedItems from "@/components/ui/fields/nui-checkbox-items";
-import NuiSelect from "@/components/ui/fields/nui-select";
-import { languages, paymentMethods } from "./_const";
-import NuiMultiSelect from "@/components/ui/fields/nui-multi-select";
-import NuiSwitch from "@/components/ui/fields/nui-switch";
 import NuiTabs from "@/components/ui/tabs";
-import SubForm_1 from "./sub-form/sub-form-1";
-import SubForm_2 from "./sub-form/sub-form-2";
-import SubForm_3 from "./sub-form/sub-form-3";
-import InfoCard_1 from "./info-card/info-card-1";
-import InfoCard_2 from "./info-card/info-card-2";
+import { initialValues_form, validationRules_form } from "./config/form";
+import { tabsConfig } from "./config/tabs";
 
 const SectionStore_Form = () => {
-  const [activeTab, setActiveTab] = useState<string | null>("info");
-
   const form = useForm({
-    initialValues: {
-      name: "",
-      email: "",
-      defaultCurrency: "",
-      timezone: "",
-      address: {
-        country: "",
-        streetAddress1: "",
-        streetAddress2: "",
-        city: "",
-        postalCode: "",
-      },
-      isDefaultStore: false,
-      billingCountries: [] as string[],
-      taxRegistrations: [] as string[],
-      includeTaxInPrice: false,
-    },
-    validate: {
-      name: (value) => (!value ? "Name is required" : null),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-      defaultCurrency: (value) => (!value ? "Currency is required" : null),
-      timezone: (value) => (!value ? "Timezone is required" : null),
-      //"address.country": (value) => (!value ? "Country is required" : null),
-      //"address.streetAddress1": (value) => (!value ? "Street address is required" : null),
-      //"address.city": (value) => (!value ? "City is required" : null),
-    },
+    initialValues: initialValues_form(""),
+    validate: validationRules_form,
   });
-
-  const tabsConfig = {
-    activeTab,
-    setActiveTab,
-    tabs: [
-      {
-        value: "info",
-        label: "Info",
-        children: <SubForm_1 form={form} />,
-      },
-      {
-        value: "settings",
-        label: "Settings",
-        children: <SubForm_2 form={form} />,
-      },
-      {
-        value: "profile",
-        label: "Profile",
-        children: <SubForm_3 form={form} />,
-      },
-    ],
-  };
 
   const handleSubmit = form.onSubmit((values) => {
     console.log(values);
     // Handle form submission
   });
 
+  // Determine which tabs have errors
+  const errorTabs = Object.keys(form.errors).map((errorKey) => {
+    // Assuming each errorKey corresponds to a tab value
+    return errorKey;
+  });
+
+  console.log(errorTabs);
+
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <form onSubmit={handleSubmit}>
       <Grid gutter="xl">
         <Grid.Col span={8}>
-          <NuiTabs config={tabsConfig} />
+          <NuiTabs
+            config={tabsConfig(form)}
+            error={!form.isValid() && errorTabs.length > 0}
+          />
         </Grid.Col>
 
         <Grid.Col span={4}>
           <Stack>
-            <InfoCard_1 />
-            <InfoCard_2 form={form} />
+            <Paper withBorder p="md">
+              <Stack>
+                <Box>
+                  <Text size="sm">Created:</Text>
+                  <Text size="sm" c="dimmed">
+                    3 Feb 2025 - 10:43
+                  </Text>
+                </Box>
+                <Box>
+                  <Text size="sm">Last saved:</Text>
+                  <Text size="sm" c="dimmed">
+                    3 Feb 2025 - 10:43
+                  </Text>
+                </Box>
+                <Box>
+                  <Text size="sm">Owner:</Text>
+                  <Text size="sm" c="dimmed">
+                    admin
+                  </Text>
+                </Box>
+              </Stack>
+            </Paper>
+            <Paper withBorder p="md">
+              <Stack>
+                <Box>
+                  <Switch
+                    label="Store is active"
+                    description=""
+                    {...form.getInputProps("store_activeStatus", {
+                      type: "checkbox",
+                    })}
+                  />
+                </Box>
+                <Box mt="md">
+                  <Switch
+                    label="Make this the default store"
+                    description="New carts will be assigned to this store unless a contributed module or custom code decides otherwise."
+                    {...form.getInputProps("store_isDefault", {
+                      type: "checkbox",
+                    })}
+                  />
+                </Box>
+              </Stack>
+            </Paper>
             <Box className="mt-4">
               <Flex
                 gap="md"

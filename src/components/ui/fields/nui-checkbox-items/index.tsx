@@ -1,4 +1,4 @@
-import { Checkbox, Group, SimpleGrid, Text } from "@mantine/core";
+import { Checkbox, Group, ScrollArea, SimpleGrid, Text } from "@mantine/core";
 import { INuiCheckedItems_Props } from "./types";
 
 const NuiCheckedItems = ({
@@ -26,7 +26,7 @@ const NuiCheckedItems = ({
   ));
 
   return (
-    <>
+    <ScrollArea.Autosize mah={275} mx="auto">
       <Checkbox.Group
         size={size}
         label={label}
@@ -37,7 +37,7 @@ const NuiCheckedItems = ({
           {cards}
         </SimpleGrid>
       </Checkbox.Group>
-    </>
+    </ScrollArea.Autosize>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 import UiTable from "@/components/ui/table";
 import { ISectionStore_List_Props } from "./types";
-import { Store } from "@/app/shop/stores/page-data";
+import { Store } from "@/app/api/mock/stores/get/mock-data";
 import { bulkActions, columns, rowActions } from "./_config";
 
 const SectionStore_List = ({ data }: ISectionStore_List_Props) => {

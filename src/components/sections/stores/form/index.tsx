@@ -14,7 +14,7 @@ import {
 import NuiTabs from "@/components/ui/tabs";
 import { initialValues_form, validationRules_form } from "./config/form";
 import { tabsConfig } from "./config/tabs";
-import { postStore } from "./actions";
+import { postStore } from "@/app/shop/stores/add/actions";
 
 const SectionStore_Form = () => {
   const form = useForm({
@@ -26,8 +26,8 @@ const SectionStore_Form = () => {
 
   const handleSubmit = form.onSubmit(async (values) => {
     console.log(values);
-    const result = await postStore({});
-    console.log("posted!");
+    const result = await postStore(values);
+    console.log(result);
   });
 
   // Determine which tabs have errors

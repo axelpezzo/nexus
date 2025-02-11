@@ -1,4 +1,4 @@
-import { Store } from "@/app/shop/stores/page-data";
+import { Store } from "@/app/api/mock/stores/get/mock-data";
 import { TableRowAction } from "@/components/ui/table/row-operations-button/types";
 import { TableBulkAction } from "@/components/ui/table/table-bulk-actions/types";
 import { NuiTableColumn } from "@/components/ui/table/types";

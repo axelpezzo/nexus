@@ -8,7 +8,7 @@ export const postStore = async (
   store: any
 ): Promise<IQueryApiReturn<Store>> => {
   return await queryApi({
-    endpoint: "stores/post",
+    endpoint: "/stores/post",
     method: "POST",
     body: store,
   });

@@ -6,7 +6,7 @@ import { IQueryApiReturn } from "@/services/types";
 
 export const getStores = async (): Promise<IQueryApiReturn<Store[]>> => {
   return await queryApi<Store[]>({
-    endpoint: "stores/get",
+    endpoint: "/stores/get",
     method: "GET",
   });
 };

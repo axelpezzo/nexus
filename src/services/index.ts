@@ -1,4 +1,4 @@
-import { getDefaultServerURL } from "@/lib/server";
+import { composerDefaultApiURL } from "@/lib/server";
 import { IOwnProps, IQueryApiReturn } from "./types";
 
 export const queryApi = async <T>({
@@ -7,7 +7,7 @@ export const queryApi = async <T>({
   body,
 }: IOwnProps): Promise<IQueryApiReturn<T>> => {
   try {
-    const res = await fetch(getDefaultServerURL(endpoint), {
+    const res = await fetch(composerDefaultApiURL(endpoint), {
       method: method,
       headers: {
         "Content-Type": "application/json",

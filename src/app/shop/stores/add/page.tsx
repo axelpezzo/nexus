@@ -10,3 +10,5 @@ const StoresAddPage = () => {
 };
 
 export default StoresAddPage;
+
+export const dynamic = "force-dynamic";

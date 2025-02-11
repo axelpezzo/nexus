@@ -3,7 +3,6 @@ import UiTable from "@/components/ui/table";
 import { ISectionStore_List_Props } from "./types";
 import { Store } from "@/app/api/mock/stores/get/mock-data";
 import { bulkActions, columns, rowActions } from "./_config";
-import { Notification } from "@mantine/core";
 
 const SectionStore_List = ({ data }: ISectionStore_List_Props) => {
   return (

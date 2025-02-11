@@ -42,11 +42,10 @@ const SectionStore_Form = () => {
       redirect("/shop/stores");
     } else {
       const apiMessage = result.status && getApiStatusMessage(result.status);
-      console.log(apiMessage);
       notifications.show({
         title: apiMessage?.title,
         message: apiMessage?.description,
-        color: apiMessage?.status,
+        color: apiMessage?.color,
       });
     }
   });

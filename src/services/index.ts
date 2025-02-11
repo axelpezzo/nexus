@@ -1,5 +1,4 @@
 import { getDefaultServerURL } from "@/lib/server";
-import { DEFAULT_REVALIDATE_TAG } from "./const";
 import { IOwnProps, IQueryApiReturn } from "./types";
 
 export const queryApi = async <T>({
@@ -15,7 +14,8 @@ export const queryApi = async <T>({
         Authorization: `Bearer ${process.env.CMS_API_TOKEN}`,
       },
       body: body ? JSON.stringify(body) : undefined,
-      next: { tags: [DEFAULT_REVALIDATE_TAG] },
+      next: { revalidate: 0 },
+      cache: "no-store",
     });
 
     if (!res.ok) {

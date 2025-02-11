@@ -15,6 +15,10 @@ import NuiTabs from "@/components/ui/tabs";
 import { initialValues_form, validationRules_form } from "./config/form";
 import { tabsConfig } from "./config/tabs";
 import { postStore } from "@/app/shop/stores/add/actions";
+import { redirect } from "next/navigation";
+import { API_STATUS } from "@/config/settings";
+import { getApiStatusMessage } from "@/lib/apis";
+import { notifications } from "@mantine/notifications";
 
 const SectionStore_Form = () => {
   const form = useForm({
@@ -22,12 +26,29 @@ const SectionStore_Form = () => {
     validate: validationRules_form,
   });
 
-  const handleReset = () => form.reset();
+  const handleReset = () => {
+    form.reset();
+  };
 
   const handleSubmit = form.onSubmit(async (values) => {
-    console.log(values);
     const result = await postStore(values);
-    console.log(result);
+    if (result.status === API_STATUS.CREATED) {
+      notifications.show({
+        title: "Store created successfully",
+        message: "The Store with ID 123 has been created successfully.",
+        color: "green",
+      });
+
+      redirect("/shop/stores");
+    } else {
+      const apiMessage = result.status && getApiStatusMessage(result.status);
+      console.log(apiMessage);
+      notifications.show({
+        title: apiMessage?.title,
+        message: apiMessage?.description,
+        color: apiMessage?.status,
+      });
+    }
   });
 
   // Determine which tabs have errors

@@ -1,5 +1,8 @@
-import { Store } from "@/app/api/mock/stores/get/mock-data";
-import { TableRowAction } from "@/components/ui/table/row-operations-button/types";
+import { Store } from "@/app/api/mock/store/get/mock-data";
+import {
+  ITableRowAction_Callbacks,
+  TableRowAction,
+} from "@/components/ui/table/row-operations-button/types";
 import { TableBulkAction } from "@/components/ui/table/table-bulk-actions/types";
 import { NuiTableColumn } from "@/components/ui/table/types";
 import { IconCopyCheck, IconTrash } from "@tabler/icons-react";
@@ -27,27 +30,31 @@ export const bulkActions: TableBulkAction<Store>[] = [
   },
 ];
 
-export const rowActions: TableRowAction<Store> = [
-  {
-    default: true,
-    label: "Edit",
-    onClick: (item: Store) => {
-      console.log("Edit item:", item);
+export function rowActions<T>(
+  callbacks: ITableRowAction_Callbacks<T>
+): TableRowAction<T> {
+  return [
+    {
+      default: true,
+      label: "Edit",
+      onClick: (item: T) => {
+        callbacks.onEdit(item);
+      },
     },
-  },
-  {
-    label: "Duplicate",
-    icon: <IconCopyCheck size={14} />,
-    onClick: (item: Store) => {
-      console.log("Duplicate item:", item);
+    {
+      label: "Duplicate",
+      icon: <IconCopyCheck size={14} />,
+      onClick: (item: T) => {
+        callbacks.onDuplicate(item);
+      },
     },
-  },
-  {
-    label: "Delete",
-    color: "red",
-    icon: <IconTrash size={14} />,
-    onClick: (item: Store) => {
-      console.log("Delete item:", item);
+    {
+      label: "Delete",
+      color: "red",
+      icon: <IconTrash size={14} />,
+      onClick: (item: T) => {
+        callbacks.onDelete(item);
+      },
     },
-  },
-];
+  ];
+}

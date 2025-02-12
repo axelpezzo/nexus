@@ -1,7 +1,5 @@
 STORE
 
-- mock on /api in order to fake the saving of the store's form 
-- mock data on store table
 - handle the edit with mock data on store
 - handle delete action
 - handle duplicate action 

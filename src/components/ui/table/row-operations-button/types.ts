@@ -5,6 +5,12 @@ interface ITableRowAction<T> {
   onClick: (item: T) => void;
 }
 
+export interface ITableRowAction_Callbacks<T> {
+  onEdit: (item: T) => void;
+  onDuplicate: (item: T) => void;
+  onDelete: (item: T) => void;
+}
+
 export interface ITableRowAction_Default<T> extends ITableRowAction<T> {
   default: true;
 }
